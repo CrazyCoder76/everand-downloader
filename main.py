@@ -21,6 +21,7 @@ all_documents = collection.find()
 def run_script(argument):
     try:
         # Execute run.py
+        book_id = argument["id"]
         book_title = argument["title"]
         book_url = argument["url"]
         cache_dir = book_url.split('/')[5]
@@ -30,14 +31,13 @@ def run_script(argument):
 
         # Check if run.py ran successfully
         if process.returncode == 0:
-            return "successfully download " + book_title
+            return f"successfully download {book_id} {book_title}"
         else:
             shutil.rmtree(cache_dir)
-            return f"failed download " + book_title
+            return f"failed download {book_id} {book_title}"
     except Exception as e:
         shutil.rmtree(cache_dir)
-        return f"failed download " + book_title
-
+        return f"failed download {book_id} {book_title}"
 
 # Number of total script2.py instances
 total_instances = 2297673

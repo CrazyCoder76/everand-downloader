@@ -129,7 +129,11 @@ with sync_playwright() as playwright:
 		if chapter_no == num_of_chapters:
 			break
 
-		page.evaluate("() => document.querySelectorAll('button.load_next_btn')[0].click()")
+		try:
+			page.evaluate("() => document.querySelectorAll('button.load_next_btn')[0].click()")
+		except Exception as e:
+			num_of_chapters = chapter_no
+			break
 
 		time.sleep(1)
 		chapter_no += 1
