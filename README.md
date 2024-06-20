@@ -13,7 +13,7 @@ Install the required Python libraries:
 ## Preparation
 Save book urls to your local mongodb database.
 
-To scrape everand books url, you can use another project on my github repo "everand-book-url-downloader".
+To scrape everand books url, you can use another project on my github repo ["everand-book-url-downloader"](https://github.com/CrazyCoder76/everand-book-url-scraper).
 
 ## Run
 1) Run the script:
