@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Playwright real-Chrome profile — contains your Everand login/session. NEVER commit.
+chrome-profile/
+
+# Per-user Everand session cookies
+session.json
+
+# Downloaded books, per-book render cache, and logs
+*.pdf
+*.log
