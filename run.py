@@ -15,10 +15,10 @@ import sys
 import shutil
 
 from playwright.sync_api import sync_playwright
-from PyPDF2 import PdfMerger
 
 import everand_capture as capture
 import everand_render as render
+import merge
 
 
 def log(msg):
@@ -107,13 +107,8 @@ def main():
         pdf_files = render.render_pages(
             playwright, pages_sorted, fontfaces, cache_dir, storage_path, log)
 
-    log('Merging PDF pages...')
-    merger = PdfMerger()
-    for f in pdf_files:
-        merger.append(f)
     out_pdf = f'{book_filename}.pdf'
-    merger.write(out_pdf)
-    merger.close()
+    merge.merge_pdfs(pdf_files, out_pdf, log)
 
     shutil.rmtree(cache_dir, ignore_errors=True)
     log(f'Download completed: {out_pdf}  ({len(pdf_files)} pages)')
