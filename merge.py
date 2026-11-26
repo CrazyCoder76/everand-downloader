@@ -22,9 +22,14 @@ def merge_pdfs(pdf_files, out_pdf, log=print):
 
     writer = PdfWriter()
     for i, path in enumerate(pdf_files, 1):
-        reader = PdfReader(path)
-        for page in reader.pages:
-            writer.add_page(page)
+        with open(path, 'rb') as source:
+            reader = PdfReader(source)
+            for page in reader.pages:
+                writer.add_page(page)
+            # PyPDF2 keys its cloning cache by id(reader). Once readers are
+            # collected, Python can reuse their IDs for unrelated PDFs, causing
+            # fonts and page streams to point at objects from an earlier input.
+            writer.reset_translation(reader)
         if i % 10 == 0 or i == len(pdf_files):
             log(f'  processed {i}/{len(pdf_files)}')
 
